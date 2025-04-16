@@ -1,11 +1,18 @@
 "use client"
-import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 
 export default function Home() {
-  const changeUserToPremium = () => {
-    // Premium user logic here
+  const email = useSearchParams().get("email");
+  
+  const changeUserToPremium = async() => {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}${email}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        },
+    })
   }
 
   useEffect(() => {
